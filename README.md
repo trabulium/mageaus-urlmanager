@@ -1,6 +1,6 @@
 # Maho URL Manager
 
-Advanced 404 URL Manager for Maho Commerce - Track, redirect, and manage 404 errors with smart product suggestions and automated email notifications.
+Advanced 404 URL Manager for Maho Commerce - Track, redirect, and manage 404 errors with automated email notifications.
 
 ## Features
 
@@ -24,7 +24,7 @@ Advanced 404 URL Manager for Maho Commerce - Track, redirect, and manage 404 err
 - **Professional HTML Templates**: Beautiful, responsive email templates with detailed statistics
 - **SMTP Pro Compatible**: Works seamlessly with SMTP Pro for reliable email delivery
 
-### 🔍 Smart Product Suggestions
+### 🔍 Smart Product Suggestions *(Coming Soon)*
 - **Meilisearch Integration**: Use Meilisearch for fuzzy matching to suggest relevant products on 404 pages
 - **Fallback Support**: Falls back to native Maho search if Meilisearch is not available
 - **Configurable Display**: Set the number of product suggestions to show
@@ -38,7 +38,6 @@ All features can be configured via **System → Configuration → Mageaus → UR
 - Query string handling
 - 404 logging options
 - Email notification settings
-- Product suggestion settings
 - Automatic redirect rules
 
 ## Installation
@@ -69,10 +68,6 @@ composer dump-autoload
 
 ### Optional Dependencies
 
-- **Meilisearch**: For advanced product suggestions with fuzzy matching
-  ```bash
-  composer require meilisearch/meilisearch-php
-  ```
 - **SMTP Pro**: For reliable email delivery of 404 reports
   ```bash
   composer require aschroder/smtp-pro

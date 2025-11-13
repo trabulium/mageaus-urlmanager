@@ -1,6 +1,6 @@
 {
   "name": "mageaus/urlmanager",
-  "description": "Advanced 404 URL Manager for Maho Commerce - Track, redirect, and manage 404 errors with smart suggestions and email notifications",
+  "description": "Advanced 404 URL Manager for Maho Commerce - Track, redirect, and manage 404 errors with automated email notifications",
   "type": "magento-module",
   "license": "OSL-3.0",
   "keywords": [
@@ -9,8 +9,7 @@
     "404",
     "url-manager",
     "redirects",
-    "seo",
-    "meilisearch"
+    "seo"
   ],
   "authors": [
     {
@@ -23,7 +22,6 @@
     "mahocommerce/maho": ">=25.0"
   },
   "suggest": {
-    "meilisearch/meilisearch-php": "For fuzzy search product suggestions on 404 pages",
     "aschroder/smtp-pro": "For reliable email delivery of 404 reports"
   },
   "extra": {
