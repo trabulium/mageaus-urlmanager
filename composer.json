@@ -1,0 +1,54 @@
+{
+  "name": "mageaus/urlmanager",
+  "description": "Advanced 404 URL Manager for Maho Commerce - Track, redirect, and manage 404 errors with smart suggestions and email notifications",
+  "type": "magento-module",
+  "license": "OSL-3.0",
+  "keywords": [
+    "maho",
+    "mahocommerce",
+    "404",
+    "url-manager",
+    "redirects",
+    "seo",
+    "meilisearch"
+  ],
+  "authors": [
+    {
+      "name": "Mageaus",
+      "email": "support@mageaus.com"
+    }
+  ],
+  "require": {
+    "php": ">=8.3",
+    "mahocommerce/maho": ">=25.0"
+  },
+  "suggest": {
+    "meilisearch/meilisearch-php": "For fuzzy search product suggestions on 404 pages",
+    "aschroder/smtp-pro": "For reliable email delivery of 404 reports"
+  },
+  "extra": {
+    "magento-root-dir": ".",
+    "map": [
+      [
+        "src/app/code/local/Mageaus/UrlManager",
+        "app/code/local/Mageaus/UrlManager"
+      ],
+      [
+        "src/app/etc/modules/Mageaus_UrlManager.xml",
+        "app/etc/modules/Mageaus_UrlManager.xml"
+      ],
+      [
+        "src/app/design/adminhtml/default/default/layout/mageaus/urlmanager.xml",
+        "app/design/adminhtml/default/default/layout/mageaus/urlmanager.xml"
+      ],
+      [
+        "src/app/locale/en_US/template/email/mageaus_urlmanager/404_report.html",
+        "app/locale/en_US/template/email/mageaus_urlmanager/404_report.html"
+      ],
+      [
+        "src/app/design/frontend/base/default/template/email/mageaus_urlmanager/404_report_rows.phtml",
+        "app/design/frontend/base/default/template/email/mageaus_urlmanager/404_report_rows.phtml"
+      ]
+    ]
+  }
+}
