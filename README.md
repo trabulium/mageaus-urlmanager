@@ -1,4 +1,4 @@
-# Maho URL Manager
+# Maho 404 URL Manager
 
 Advanced 404 URL Manager for Maho Commerce - Track, redirect, and manage 404 errors with automated email notifications.
 
