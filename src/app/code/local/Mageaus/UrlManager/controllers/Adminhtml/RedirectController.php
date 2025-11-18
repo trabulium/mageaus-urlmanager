@@ -62,6 +62,11 @@ class Mageaus_UrlManager_Adminhtml_RedirectController extends Mage_Adminhtml_Con
             }
         }
 
+        // Pre-populate source_url if coming from 404 log
+        if (!$id && ($sourceUrl = $this->getRequest()->getParam('source_url'))) {
+            $model->setSourceUrl($sourceUrl);
+        }
+
         $this->_title($model->getId() ? $model->getData('source_url') : $this->__('New Redirect'));
 
         $data = Mage::getSingleton('adminhtml/session')->getFormData(true);

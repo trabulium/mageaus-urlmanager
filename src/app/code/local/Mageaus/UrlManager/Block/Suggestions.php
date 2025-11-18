@@ -86,6 +86,30 @@ class Mageaus_UrlManager_Block_Suggestions extends Mage_Core_Block_Template
         // Remove leading/trailing slashes
         $url = trim($url, '/');
 
+        // Check if disabled product action is set to show suggestions
+        $disabledProductAction = Mage::getStoreConfig('mageaus_urlmanager/auto_redirects/disabled_products');
+
+        // Check if this is a product view URL (catalog/product/view/id/XXXXX)
+        // Only extract product name if the action is set to show_suggestions
+        if ($disabledProductAction === 'show_suggestions' && preg_match('#catalog/product/view/id/(\d+)#', $url, $matches)) {
+            $productId = (int)$matches[1];
+
+            try {
+                // Load the product (even if disabled) to get its name
+                $product = Mage::getModel('catalog/product')->load($productId);
+
+                if ($product->getId() && $product->getName()) {
+                    $productName = $product->getName();
+                    Mage::log('Detected disabled product URL. Product ID: ' . $productId . ', Name: ' . $productName,
+                        Zend_Log::INFO, 'mageaus_urlmanager.log');
+                    return $productName;
+                }
+            } catch (Exception $e) {
+                Mage::log('Failed to load product ID ' . $productId . ': ' . $e->getMessage(),
+                    Zend_Log::WARN, 'mageaus_urlmanager.log');
+            }
+        }
+
         // Remove .html extension
         $url = str_replace('.html', '', $url);
 

@@ -57,14 +57,25 @@ class Mageaus_UrlManager_Helper_Data extends Mage_Core_Helper_Abstract
     }
 
     /**
-     * Check if disabled products should be auto-redirected
+     * Get disabled products action
+     *
+     * @param int|null $storeId
+     * @return string
+     */
+    public function getDisabledProductsAction(?int $storeId = null): string
+    {
+        return (string)Mage::getStoreConfig(self::XML_PATH_AUTO_DISABLED_PRODUCTS, $storeId);
+    }
+
+    /**
+     * Check if disabled products should be auto-redirected (legacy compatibility)
      *
      * @param int|null $storeId
      * @return bool
      */
     public function shouldRedirectDisabledProducts(?int $storeId = null): bool
     {
-        return Mage::getStoreConfigFlag(self::XML_PATH_AUTO_DISABLED_PRODUCTS, $storeId);
+        return $this->getDisabledProductsAction($storeId) === 'redirect_category';
     }
 
     /**

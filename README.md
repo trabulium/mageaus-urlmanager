@@ -97,7 +97,21 @@ For multiple redirects:
 2. Prepare a CSV file with format: `source_url,target_url,redirect_type`
 3. Upload and save
 
-### 4. View 404 Logs
+### 4. Configure 404 Page Layout (Optional)
+
+To display product suggestions on your custom 404 page, add this to your theme's 404 layout XML (e.g., `app/design/frontend/[package]/[theme]/layout/local.xml`):
+
+```xml
+<cms_index_noroute>
+    <reference name="content">
+        <block type="mageaus_urlmanager/suggestions" name="urlmanager.suggestions" template="mageaus/urlmanager/suggestions.phtml" after="-" />
+    </reference>
+</cms_index_noroute>
+```
+
+**Note**: The base layout already includes this for the default 404 page. This step is only needed if you have a custom theme that doesn't inherit from base.
+
+### 5. View 404 Logs
 
 Check **Mageaus → URL Manager → 404 Logs** to see:
 - Which URLs are returning 404 errors
@@ -145,7 +159,7 @@ Check **Mageaus → URL Manager → 404 Logs** to see:
 
 | Setting | Description | Default |
 |---------|-------------|---------|
-| Disabled Products Check | Redirect disabled products to category | No |
+| Disabled Products Action | Choose action for disabled products: No Action, Redirect to Category, or Show Product Suggestions via Meilisearch | No Action |
 | Not Visible Products Check | Redirect not-visible products | No |
 | Disabled Categories Check | Redirect disabled categories to parent | No |
 

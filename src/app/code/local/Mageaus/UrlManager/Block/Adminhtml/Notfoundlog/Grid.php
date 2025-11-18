@@ -67,12 +67,15 @@ class Mageaus_UrlManager_Block_Adminhtml_Notfoundlog_Grid extends Mage_Adminhtml
 
         $this->addColumn('action', [
             'header' => Mage::helper('mageaus_urlmanager')->__('Action'),
-            'width' => '50px',
+            'width' => '100px',
             'type' => 'action',
             'getter' => 'getId',
             'actions' => [[
-                'caption' => Mage::helper('mageaus_urlmanager')->__('Edit'),
-                'url' => ['base' => '*/*/edit'],
+                'caption' => Mage::helper('mageaus_urlmanager')->__('Create Redirect'),
+                'url' => [
+                    'base' => 'adminhtml/redirect/new',
+                    'params' => ['source_url' => '$request_url']
+                ],
                 'field' => 'id',
             ]],
             'filter' => false,
@@ -98,7 +101,7 @@ class Mageaus_UrlManager_Block_Adminhtml_Notfoundlog_Grid extends Mage_Adminhtml
 
     public function getRowUrl($row)
     {
-        return $this->getUrl('*/*/edit', ['id' => $row->getId()]);
+        return $this->getUrl('adminhtml/redirect/new', ['source_url' => $row->getRequestUrl()]);
     }
 
     public function getGridUrl()

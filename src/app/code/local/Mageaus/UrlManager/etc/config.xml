@@ -89,6 +89,16 @@
                     </mageaus_urlmanager_log_not_found>
                 </observers>
             </controller_front_send_response_before>
+
+            <!-- Disabled Product Redirect -->
+            <controller_action_predispatch_catalog_product_view>
+                <observers>
+                    <mageaus_urlmanager_check_product_access>
+                        <class>mageaus_urlmanager/observer_product</class>
+                        <method>checkProductAccess</method>
+                    </mageaus_urlmanager_check_product_access>
+                </observers>
+            </controller_action_predispatch_catalog_product_view>
         </events>
     </global>
 

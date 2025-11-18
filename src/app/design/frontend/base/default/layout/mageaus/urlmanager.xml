@@ -10,17 +10,10 @@
  */
 -->
 <layout>
-    <!-- Add product suggestions to 404 pages -->
+    <!-- Add product suggestions to 404 pages only -->
     <cms_index_noroute>
         <reference name="content">
             <block type="mageaus_urlmanager/suggestions" name="urlmanager.suggestions" template="mageaus/urlmanager/suggestions.phtml" after="-" />
         </reference>
     </cms_index_noroute>
-
-    <!-- Also add to no-route CMS page -->
-    <cms_page_view id="no-route">
-        <reference name="content">
-            <block type="mageaus_urlmanager/suggestions" name="urlmanager.suggestions" template="mageaus/urlmanager/suggestions.phtml" after="-" />
-        </reference>
-    </cms_page_view>
 </layout>
