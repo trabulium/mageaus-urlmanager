@@ -80,7 +80,7 @@ $installer->getConnection()->createTable($table);
 
 
 $table = $installer->getConnection()
-    ->newTable($installer->getTable('mageaus_urlmanager/notfound_log'))
+    ->newTable($installer->getTable('mageaus_urlmanager/notfoundlog'))
     ->addColumn('notfound_log_id', Maho\Db\Ddl\Table::TYPE_INTEGER, null, [
         'identity'  => true,
         'unsigned'  => true,
