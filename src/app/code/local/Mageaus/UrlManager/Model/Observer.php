@@ -189,6 +189,11 @@ class Mageaus_UrlManager_Model_Observer
         $request = Mage::app()->getRequest();
         $requestPath = trim($request->getRequestUri(), '/');
 
+        // Check if URL should be ignored (e.g., tel:, mailto:, etc.)
+        if ($helper->shouldIgnoreUrl($requestPath)) {
+            return;
+        }
+
         // Check if we should log bot traffic
         $userAgent = $request->getHeader('User-Agent');
         if (!$helper->shouldLogBots() && $this->isBot($userAgent)) {
@@ -400,12 +405,13 @@ class Mageaus_UrlManager_Model_Observer
                 ->getColumnValues('notfound_log_id');
 
             if (!empty($idsToDelete)) {
-                Mage::getResourceModel('mageaus_urlmanager/notfoundlog')
-                    ->getConnection()
-                    ->delete(
-                        Mage::getResourceModel('mageaus_urlmanager/notfoundlog')->getMainTable(),
-                        ['notfound_log_id IN (?)' => $idsToDelete]
-                    );
+                // Ensure all IDs are integers for security
+                $idsToDelete = array_map('intval', $idsToDelete);
+
+                $resource = Mage::getSingleton('core/resource');
+                $connection = $resource->getConnection('core_write');
+                $tableName = $resource->getTableName('mageaus_urlmanager/notfoundlog');
+                $connection->delete($tableName, ['notfound_log_id IN (?)' => $idsToDelete]);
             }
         }
     }

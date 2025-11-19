@@ -27,6 +27,7 @@ class Mageaus_UrlManager_Helper_Data extends Mage_Core_Helper_Abstract
     public const XML_PATH_404_LOGGING_ENABLED = 'mageaus_urlmanager/logging/enabled';
     public const XML_PATH_404_LOG_BOTS = 'mageaus_urlmanager/logging/log_bots';
     public const XML_PATH_404_MAX_LOG_ENTRIES = 'mageaus_urlmanager/logging/max_log_entries';
+    public const XML_PATH_404_IGNORE_PATTERNS = 'mageaus_urlmanager/logging/ignore_patterns';
 
     public const XML_PATH_SUGGESTIONS_ENABLED = 'mageaus_urlmanager/suggestions/enabled';
     public const XML_PATH_SUGGESTIONS_MAX = 'mageaus_urlmanager/suggestions/max_suggestions';
@@ -164,6 +165,54 @@ class Mageaus_UrlManager_Helper_Data extends Mage_Core_Helper_Abstract
     public function getMaxLogEntries(?int $storeId = null): int
     {
         return (int)Mage::getStoreConfig(self::XML_PATH_404_MAX_LOG_ENTRIES, $storeId);
+    }
+
+    /**
+     * Get ignore patterns for 404 logging
+     *
+     * @param int|null $storeId
+     * @return array
+     */
+    public function getIgnorePatterns(?int $storeId = null): array
+    {
+        $patternsString = (string)Mage::getStoreConfig(self::XML_PATH_404_IGNORE_PATTERNS, $storeId);
+
+        if (empty($patternsString)) {
+            return [];
+        }
+
+        // Split by newlines (patterns are stored one per line after validation)
+        $patterns = preg_split('/[\r\n]+/', $patternsString, -1, PREG_SPLIT_NO_EMPTY);
+
+        // Trim and filter empty values
+        $patterns = array_filter(array_map('trim', $patterns));
+
+        return array_values($patterns);
+    }
+
+    /**
+     * Check if a URL should be ignored from 404 logging
+     *
+     * @param string $url
+     * @param int|null $storeId
+     * @return bool
+     */
+    public function shouldIgnoreUrl(string $url, ?int $storeId = null): bool
+    {
+        $patterns = $this->getIgnorePatterns($storeId);
+
+        if (empty($patterns)) {
+            return false;
+        }
+
+        // Check if URL contains any of the ignore patterns
+        foreach ($patterns as $pattern) {
+            if (stripos($url, $pattern) !== false) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**
